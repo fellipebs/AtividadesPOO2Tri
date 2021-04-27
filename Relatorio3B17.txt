@@ -1,0 +1,65 @@
+// Fellipe Barcelos Saraiva
+
+
+---- Gravadora:
+
+SELECT cd.nomeCD, mu.idMusica, 
+	mu.nome, mu.nomeAutor, 
+	gr.nome, cd.precoVenda
+FROM 	TBL_CD cd 
+INNER JOIN TBL_Musica mu
+INNER JOIN TBL_Gravadora gr
+ON mu.idGravadora = gr.idGravadora
+AND mu.idCd = cd.idCd 
+WHERE cd.idCd = 'PARAMETRO';
+
+---- Livraria:
+
+SELECT lv.idLivro, DATE_FORMAT(lv.dataCadastro,"%d/%m/%Y") as data,
+       lv.titulo, ed.nome, 
+       lv.numPaginas, lv.valor
+FROM TBL_Livro lv
+INNER JOIN TBL_Editora ed
+INNER JOIN TBL_Autor au
+ON lv.idAutor = au.idAutor 
+AND lv.idEditora = ed.idEditora
+WHERE au.idAutor = 'PARAMETRO' 
+AND lv.numPaginas > 200;
+
+---- BdEmpresa
+
+select f.nome, date_format(f.dataAdmissao, '%d/%m/%Y') as dataAdm,
+f.cargo, a.descricao as Area
+
+from tbl_funcionario f
+
+inner join tbl_area a
+ 
+on f.idArea = a.idArea
+    
+where f.idSetor = 'PARAMETRO' and dataAdmissao >= 'PARAMETRO'
+and formaContrato = 'Carteira Assinada';
+
+---- BdVenda
+
+
+SELECT pd.idPedido, cl.nome,
+       cl.endereco
+FROM   TBL_Pedido pd
+INNER JOIN TBL_Cliente cl
+ON cl.idCliente = pd.idCliente
+WHERE pd.dataEntrega = 'PARAMETRO';
+
+
+---- BdInformacao
+
+SELECT nt.idNoticia, fo.descricao,
+       DATE_FORMAT(nt.dataCadastro,'%d/%m/%Y'),
+       nt.titulo
+FROM   TBL_Noticia nt
+INNER JOIN TBL_Fonte fo
+INNER JOIN TBL_Categoria ca
+ON nt.idFonte = fo.idFonte
+AND nt.idCategoria = ca.idCategoria
+WHERE ca.idCategoria = 'PARAMETRO';
+
